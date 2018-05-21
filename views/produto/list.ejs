@@ -1,0 +1,43 @@
+
+<%- include ../menu/cabecalho.ejs %>
+
+<% if (messages.error) { %>
+	<p style="color:red"><%- messages.error %></p>
+<% } %>
+
+<% if (messages.success) { %>
+	<p style="color:green"><%- messages.success %></p>
+<% } %>	
+
+<table width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th>Nome</th>
+		<th>Marca</th>
+		<th>Valor</th>
+		<th>Action</th>
+	</tr>
+	
+	<% if (data) { %>
+	<% data.forEach(function(produto){ %>
+		<tr>
+			<td><%= produto.nome %></td>
+			<td><%= produto.marca %></td>
+			<td><%= produto.valor %></td>
+			<td>
+				<div style="float:left">
+					<a href='/produto/edit/<%= produto.id %>'>Edit</a> &nbsp;							
+					<form method="post" action="/produto/delete/<%= produto.id %>" style="float:right">
+						<input type="submit" name="delete" value='Delete' onClick="return confirm('Tem certeza que deseja excluir?')" />
+						<input type="hidden" name="_method" value="DELETE" />
+					</form>
+				</div>
+			</td>
+		</tr>
+	<% }) %>
+	<% } %>
+
+</table>
+
+
+<%- include ../menu/rodape.ejs %>
